@@ -24,6 +24,8 @@ spec:
       - resources:
           kinds:
           - Pod
+          namespaces:
+          - dev
     validate:
       message: "CPU and memory resource requests are required."
       pattern:

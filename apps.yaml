@@ -4,8 +4,8 @@ metadata:
   name: apps
 spec:
   destination:
-    namespace: default
-    name: kind
+    namespace: argocd
+    name: in-cluster
   project: default
   source:
     path: apps

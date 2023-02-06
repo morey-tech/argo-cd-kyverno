@@ -1,15 +1,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: policies
+  name: apps
 spec:
   destination:
     namespace: default
     name: kind
   project: default
   source:
-    path: policies
+    path: apps
     repoURL: https://github.com/morey-tech/argo-cd-kyverno.git
     targetRevision: main
-    directory:
-      recurse: true

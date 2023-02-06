@@ -15,7 +15,7 @@ metadata:
       automatically be applied to each Pod based on the LimitRange configuration. This policy
       validates that all containers have something specified for memory and CPU requests.
 spec:
-  validationFailureAction: audit
+  validationFailureAction: enforce
   background: true
   rules:
   - name: validate-resources

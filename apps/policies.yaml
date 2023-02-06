@@ -6,8 +6,8 @@ metadata:
     argocd.argoproj.io/sync-wave: "0"
 spec:
   destination:
-    namespace: default
     name: kind
+    namespace: kyverno
   project: default
   source:
     path: policies

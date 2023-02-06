@@ -17,3 +17,5 @@ spec:
     targetRevision: main
     directory:
       recurse: true
+  syncPolicy:
+    automated: {}

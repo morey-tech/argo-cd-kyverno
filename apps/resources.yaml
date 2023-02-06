@@ -16,5 +16,6 @@ spec:
     repoURL: https://github.com/morey-tech/argo-cd-kyverno.git
     targetRevision: main
   syncPolicy:
+    automated: {}
     syncOptions:
       - CreateNamespace=true

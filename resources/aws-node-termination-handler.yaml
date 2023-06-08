@@ -1,0 +1,216 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2023-06-06T21:40:43Z"
+  generateName: test-handler
+  labels:
+    app.kubernetes.io/component: daemonset
+    app.kubernetes.io/instance: be-app
+    app.kubernetes.io/name: aws-node-termination-handler
+    controller-revision-hash: 966d57578
+    k8s-app: aws-node-termination-handler
+    kubernetes.io/os: linux
+    pod-template-generation: "1"
+  name: be-app-aws-node-termination-handler-11111111
+  namespace: default
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: DaemonSet
+    name: be-app-aws-node-termination-handler
+    uid: 60d4b8a3-e6cd-4e9d-ab34-d7d3798a9424
+  resourceVersion: "47204763"
+  uid: 1f49af52-3aca-4a83-a76a-06e54c45b7f9
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchFields:
+          - key: metadata.name
+            operator: In
+            values:
+            - ip-172-16-85-3.ap-northeast-1.compute.internal
+  containers:
+  - env:
+    - name: NODE_NAME
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: spec.nodeName
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: metadata.name
+    - name: NAMESPACE
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: metadata.namespace
+    - name: ENABLE_PROBES_SERVER
+      value: "false"
+    - name: PROBES_SERVER_PORT
+      value: "8080"
+    - name: PROBES_SERVER_ENDPOINT
+      value: /healthz
+    - name: LOG_LEVEL
+      value: info
+    - name: JSON_LOGGING
+      value: "false"
+    - name: LOG_FORMAT_VERSION
+      value: "1"
+    - name: ENABLE_PROMETHEUS_SERVER
+      value: "false"
+    - name: PROMETHEUS_SERVER_PORT
+      value: "9092"
+    - name: METADATA_TRIES
+      value: "3"
+    - name: DRY_RUN
+      value: "false"
+    - name: CORDON_ONLY
+      value: "false"
+    - name: TAINT_NODE
+      value: "true"
+    - name: EXCLUDE_FROM_LOAD_BALANCERS
+      value: "false"
+    - name: DELETE_LOCAL_DATA
+      value: "true"
+    - name: IGNORE_DAEMON_SETS
+      value: "true"
+    - name: POD_TERMINATION_GRACE_PERIOD
+      value: "-1"
+    - name: NODE_TERMINATION_GRACE_PERIOD
+      value: "120"
+    - name: EMIT_KUBERNETES_EVENTS
+      value: "false"
+    - name: ENABLE_SPOT_INTERRUPTION_DRAINING
+      value: "true"
+    - name: ENABLE_SCHEDULED_EVENT_DRAINING
+      value: "false"
+    - name: ENABLE_REBALANCE_MONITORING
+      value: "false"
+    - name: ENABLE_REBALANCE_DRAINING
+      value: "false"
+    - name: ENABLE_SQS_TERMINATION_DRAINING
+      value: "false"
+    - name: UPTIME_FROM_FILE
+      value: /proc/uptime
+    image: public.ecr.aws/aws-ec2/aws-node-termination-handler:v1.18.1
+    imagePullPolicy: IfNotPresent
+    name: aws-node-termination-handler
+    resources: {}
+    securityContext:
+      allowPrivilegeEscalation: false
+      runAsGroup: 1000
+      runAsNonRoot: true
+      runAsUser: 1000
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /proc/uptime
+      name: uptime
+      readOnly: true
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-6k9xr
+      readOnly: true
+  dnsPolicy: ClusterFirstWithHostNet
+  enableServiceLinks: true
+  hostNetwork: true
+  nodeName: ip-172-16-85-3.ap-northeast-1.compute.internal
+  nodeSelector:
+    kubernetes.io/os: linux
+  preemptionPolicy: PreemptLowerPriority
+  priority: 2000001000
+  priorityClassName: system-node-critical
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext:
+    fsGroup: 1000
+  serviceAccount:  default
+  serviceAccountName:  default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - operator: Exists
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+  - effect: NoSchedule
+    key: node.kubernetes.io/disk-pressure
+    operator: Exists
+  - effect: NoSchedule
+    key: node.kubernetes.io/memory-pressure
+    operator: Exists
+  - effect: NoSchedule
+    key: node.kubernetes.io/pid-pressure
+    operator: Exists
+  - effect: NoSchedule
+    key: node.kubernetes.io/unschedulable
+    operator: Exists
+  - effect: NoSchedule
+    key: node.kubernetes.io/network-unavailable
+    operator: Exists
+  volumes:
+  - hostPath:
+      path: /proc/uptime
+      type: ""
+    name: uptime
+  - name: kube-api-access-6k9xr
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2023-06-06T21:40:43Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2023-06-06T21:40:54Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2023-06-06T21:40:54Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2023-06-06T21:40:43Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: containerd://f6630195d498a463f0fb81ddab5ff341c58fe3d74697e44a9d6effe6c302f835
+    image: public.ecr.aws/aws-ec2/aws-node-termination-handler:v1.18.1
+    imageID: public.ecr.aws/aws-ec2/aws-node-termination-handler@sha256:a826b4631f9f0dd64668a5aaa62816662023b30d214f8f7723b8ca460104188f
+    lastState: {}
+    name: aws-node-termination-handler
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2023-06-06T21:40:53Z"
+  hostIP: 172.16.85.3
+  phase: Running
+  podIP: 172.16.85.3
+  podIPs:
+  - ip: 172.16.85.3
+  qosClass: BestEffort
+  startTime: "2023-06-06T21:40:43Z"

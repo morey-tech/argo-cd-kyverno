@@ -20,3 +20,34 @@ spec:
       requests:
         memory: "256Mi"
         cpu: "100m"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-policy
+spec:
+  containers:
+  - name: test
+    image: public.ecr.aws/r2l1x4g2/go-http-server:v0.1.0-23ffe0a715
+    command:
+      - /bin/bash
+    args:
+      - -c
+      - sleep 1d
+  securityContext:
+      runAsNonRoot: false
+      runAsGroup: 1000
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: true
+      capabilities:
+        drop:
+        - ALL
+  hostNetwork: true
+  hostIPC: true
+  hostPID: true
+  volumes:
+  - name: allowed-volume
+    emptyDir: {}
+  - name: disallowed-volume
+    configMap:
+      name: my-configmap        

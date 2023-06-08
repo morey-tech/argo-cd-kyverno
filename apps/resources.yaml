@@ -13,7 +13,7 @@ spec:
   project: default
   source:
     path: resources
-    repoURL: https://github.com/morey-tech/argo-cd-kyverno.git
+    repoURL: https://github.com/dyjo4949/argo-cd-kyverno
     targetRevision: main
   syncPolicy:
     # automated: {}

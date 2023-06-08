@@ -8,12 +8,12 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    name: kind
+    name: in-cluster
     namespace: kyverno
   source:
     repoURL: 'https://kyverno.github.io/kyverno/'
     chart: kyverno
-    targetRevision: 2.7.0
+    targetRevision: 3.0.1
   project: default
   syncPolicy:
     automated: {}

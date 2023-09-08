@@ -1,14 +1,10 @@
-# workflow 的名稱，會在 Github Action 頁面上顯示的名稱（選擇性）
 name: CI
-# 只有在 push 到 develop 分支上才會觸發此 workflow
 on:
   push:
     branches:
       - develop
 
-# 建立一個 job
 jobs:
-  # 將此 job 的名稱設定為 'tests'
   tests:
     # 執行在最新版本的 ubuntu runner 上
     runs-on: ubuntu-latest
